@@ -1,0 +1,7 @@
+{
+  "name": "Mine Sentinel",
+  "description": "AI-enabled real-time mine subsidence monitoring, prediction, and early-warning system.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
