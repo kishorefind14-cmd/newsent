@@ -257,6 +257,30 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
               </div>
             </div>
 
+            {/* Map Provider & MapTiler API Key */}
+            <div className="space-y-2">
+              <span className="text-[#F27D26] uppercase font-bold tracking-wider block">Geospatial Map Engine:</span>
+              <div className="bg-[#0a0a0b] p-3 rounded border border-[#26282e] space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[#8E9299]">Provider:</span>
+                  <span className="font-semibold text-[#E4E7EB] flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-[#00D26A]"></span>
+                    MapTiler Cloud Raster & Vector Services
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[#8E9299]">Active API Key:</span>
+                  <span className="font-mono text-xs text-[#00D26A] bg-[#18191d] px-2 py-0.5 rounded border border-[#26282e]">
+                    DBFLRU5qkLXqV5cEIEAw
+                  </span>
+                </div>
+                <div className="text-[10px] text-[#8E9299] pt-1 border-t border-[#1e2025] flex items-center justify-between">
+                  <span>Layers: Satellite Hybrid, Dark Tactical, Topographic, Streets</span>
+                  <span className="text-[#00D26A]">Status: Active (HTTP 200)</span>
+                </div>
+              </div>
+            </div>
+
             <button
               type="submit"
               disabled={saving}

@@ -15,7 +15,7 @@ import {
 } from './db.ts';
 import type { ChatGraphData } from '../src/types.ts';
 
-const DEFAULT_GEMINI_KEY = 'AQ.Ab8RN6JSYXt-unQnYoCU32uvtI4_yo5h6bYgZdzPadkadV03cg';
+const DEFAULT_GEMINI_KEY = process.env.GEMINI_API_KEY;
 export const REFUSAL_MESSAGE = "I can't tell that. I am Sentinal, the Mine Sentinel AI assistant. I only answer questions regarding the Mine Sentinel application, its features, and sensor database telemetry.";
 
 // Gemini client initialization (lazy / safe)
@@ -156,27 +156,26 @@ function buildLiveDatabaseContext(query: string): string {
 
 DEPLOYED SENSOR NODES & LIVE STATUS:
 ${devices
-  .map(
-    d =>
-      `- ${d.device_id} ("${d.device_name}"):
+      .map(
+        d =>
+          `- ${d.device_id} ("${d.device_name}"):
    Location: ${d.installation_location} (GPS: ${d.latitude.toFixed(4)}, ${d.longitude.toFixed(4)})
    Status: ${d.status}, Current Risk: ${d.current_risk_level || 'NORMAL'} (${d.current_risk_score ?? 0}/100)
    Current Tilt: ${d.current_tilt ?? 0}°
    Current Vibration: ${d.current_vibration ?? 0}
    Last Telemetry Packet: ${d.last_seen}`
-  )
-  .join('\n')}
+      )
+      .join('\n')}
 
 DATABASE EXTREMES & RECORDS:
 - Highest Vibration Recorded: ${highestVib ? `${highestVib.vibration} on ${highestVib.device_id} (timestamp: ${highestVib.timestamp})` : 'N/A'}
 - Highest Tilt Magnitude Recorded: ${highestTilt ? `${highestTilt.tilt_magnitude}° on ${highestTilt.device_id} (timestamp: ${highestTilt.timestamp})` : 'N/A'}
 
 RECENT ALERTS IN DATABASE:
-${
-  alerts.slice(0, 5).map(
-    a => `- [${a.alert_type}] ${a.device_id}: "${a.message}" (Logged: ${a.sent_time || a.created_at})`
-  ).join('\n') || 'No alerts recorded in database.'
-}`;
+${alerts.slice(0, 5).map(
+        a => `- [${a.alert_type}] ${a.device_id}: "${a.message}" (Logged: ${a.sent_time || a.created_at})`
+      ).join('\n') || 'No alerts recorded in database.'
+    }`;
 
   // If a specific date is mentioned in the query
   const dateMatch = query.match(/(\d{1,2}(?:st|nd|rd|th)?\s+[a-z]+(?:\s+\d{4})?|\d{4}-\d{2}-\d{2})/i);
